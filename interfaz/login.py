@@ -2,55 +2,57 @@ import json
 import hashlib
 
 # Definimos un usuario y una contraseña predeterminada
-USUARIO = 'usuario'
-CONTRASENA = 'SISGESA'
+USERNAME = 'usuario'
+PASSWORD = 'SISGESA'
 
 # Función para encriptar la contraseña con SHA-256
-def encriptarContrasena(contrasena):
-    return hashlib.sha256(contrasena.encode()).hexdigest()
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
 
 # Guardamos el usuario y la contraseña en un archivo JSON
 def guardarCredenciales():
-    credenciales = {
-        'usuario': USUARIO,
-        'contrasena': encriptarContrasena(CONTRASENA)
+    credentials = {
+        'username': USERNAME,
+        'password': hash_password(PASSWORD)
     }
-    with open('passwords.json', 'w') as archivo:
-        json.dump(credenciales, archivo)
+    with open('passwords.json', 'w') as f:
+        json.dump(credentials, f)
 
-# Función para validar el inicio de sesión
-def login(usuario, contrasena):
+
+# Función para validar el login
+def login(username, password): 
     try:
-        with open('passwords.json', 'r') as archivo:
-            credenciales = json.load(archivo)
-            if usuario == credenciales['usuario'] and encriptarContrasena(contrasena) == credenciales['contrasena']:
-                print("Inicio de sesión exitoso.")
-                cambiarPassword(credenciales['usuario'])  # Llama a la función para cambiar la contraseña
-            # else:
-            #     print("Usuario o contraseña incorrectos.")
+        with open('passwords.json', 'r') as f:
+            credentials = json.load(f)
+        
+        if username == credentials['username'] and hash_password(password) == credentials['password']:
+            print("Login exitoso.")
+            cambiarPassword(credentials['username'])  # Llama a la función para cambiar la contraseña
+        else:
+            print("Usuario o contraseña incorrectos.")
+        
     
     except Exception as e:
         print(f"Ocurrió un error inesperado: {e}")
 
 # Función para cambiar la contraseña
-def cambiarPassword(usuario):
+def cambiarPassword(username):
     try:
-        nueva_contrasena = input("Ingrese su nueva contraseña: ")
-        nueva_contrasena_encriptada = encriptarContrasena(nueva_contrasena)
+        new_password = input("Ingrese su nueva contraseña: ")
+        new_hashed_password = hash_password(new_password)
 
         # Actualizamos el archivo JSON con la nueva contraseña
-        credenciales = {
-            'usuario': usuario,
-            'contrasena': nueva_contrasena_encriptada
+        credentials = {
+            'username': username,
+            'password': new_hashed_password
         }
-        with open('passwords.json', 'w') as archivo:
-            json.dump(credenciales, archivo)
+        with open('passwords.json', 'w') as f:
+            json.dump(credentials, f)
 
         print("Contraseña cambiada exitosamente.")
 
     except Exception as e:
         print(f"Ocurrió un error al cambiar la contraseña: {e}")
-
 # Guardamos las credenciales inicialmente
 guardarCredenciales()
 

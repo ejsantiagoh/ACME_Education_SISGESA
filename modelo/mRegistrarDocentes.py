@@ -1,6 +1,5 @@
 from persistencia.persistencia import guardarDocentes
 
-
 def leerCedula():
     while True:
         try:
@@ -11,7 +10,6 @@ def leerCedula():
             return cedula
         except Exception as e:
             print("Error al ingresar la cédula \n" , e)
-            
             
 def leerNombre():
     while True:

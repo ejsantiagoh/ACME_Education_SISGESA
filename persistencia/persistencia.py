@@ -1,31 +1,29 @@
 import json
 from pathlib import Path
 
-# def guardar(sgaa, arch):
-#     with open(arch, "w") as fd:
-#         json.dump(sgaa, fd)
+pathData = "data.json"
 
-#     if not fd.closed:
-#         fd.close()
+def guardarDatos():
+    datos = {}
+    with open('data.json', 'w') as archivo:
+        json.dump(datos, archivo)
 
-# def cargar(arch):
-#     archivo = Path(arch)
-#     sgaa = {}
-#     if archivo.is_file(): #True: si existe y es un archivo
-#         try:
-#             with open(arch, "r") as fd:
-#                 sgaa = json.load(fd)
 
-#             if not fd.closed:
-#                 fd.close()
-#         except Exception as e:
-#             print(">>> Error al abrir el archivo. \n" + e)
-#     else:
-#         print(">>> Error. El archivo no existe.")
-#         input(">>> Presione cualquier tecla para continuar... ")
-
-#     return sgaa
-
+def cargarDatos(arch):
+    archivo = Path(arch)
+    grupo = {}
+    if archivo.is_file(): #True si existe y es un archivo
+        try:
+            with open(arch, "r") as fd: #Abrir el archivo
+                grupo = json.load(fd)
+            if not fd.closed:
+                fd.close()
+        except Exception as e:
+            print("Error al abrir el archivo data\n", e)
+    else:
+        print("Error el archivo no existe")
+        input("Presione cualquier tecla para continuar...")    
+    return grupo
 
 def guardarRegistroGrupo(pathData, arch):
     archivo = Path(arch)

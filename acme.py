@@ -4,23 +4,25 @@ from modelo.mRegistroGrupo import registrarGrupo
 from modelo.mRegistrarModulo import registrarModulo
 from modelo.mRegistroEstudiantes import registrarEstudiante
 from modelo.mRegistrarDocentes import registrarDocente
-# from modelo.mRegistroAsistencia import registrarAsistencia
+from persistencia.persistencia import *
+
 
 # Programa principal
 print("-" * 64)
 print("----- Sistema de Gestión de Asistencia Académica (SISGESA) -----\n")
 
 while True: # Entramos al menú
+        dDataAll = cargarDatos(pathData)
         menu()
         opcion = input("Introduce tu opción (A, B, C, D, etc): ").strip().upper() # quita espacios y pasa a mayusculas
         if opcion == 'A':
-            registrarGrupo()
+            registrarGrupo(dDataAll,pathData)
         elif opcion == 'B':
-            registrarModulo()
+            registrarModulo(dDataAll,pathData)
         elif opcion == 'C':
-            registrarEstudiante()
+            registrarEstudiante(dDataAll,pathData)
         elif opcion == 'D':
-            registrarDocente()
+            registrarDocente(dDataAll,pathData)
         elif opcion == 'E':
             pass
             # registrarAsistencia()
