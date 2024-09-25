@@ -1,1 +1,14 @@
-{"grupo": [{"codigo": "12312", "nombre": "Af", "sigla": "FADA"}]}
+{
+    "grupo": [
+        {
+            "codigo": "12312",
+            "nombre": "Af",
+            "sigla": "FADA"
+        },
+        {
+            "codigo": "2e2",
+            "nombre": "Sfas",
+            "sigla": "FSA"
+        }
+    ]
+}
